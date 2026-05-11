@@ -1,0 +1,96 @@
+{
+  "source": "/Users/Anthony.Madrazo2/Documents/Projects/research/focus/FocusNFCDemo/ContentView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Present",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 23
+        }
+      },
+      {
+        "comment": "",
+        "key": "Status",
+        "location": {
+          "startingColumn": 25,
+          "startingLine": 48
+        }
+      },
+      {
+        "comment": "",
+        "key": "Apps",
+        "location": {
+          "startingColumn": 25,
+          "startingLine": 61
+        }
+      },
+      {
+        "comment": "",
+        "key": "NFC Tag",
+        "location": {
+          "startingColumn": 25,
+          "startingLine": 81
+        }
+      },
+      {
+        "comment": "",
+        "key": "Manual Controls",
+        "location": {
+          "startingColumn": 25,
+          "startingLine": 102
+        }
+      },
+      {
+        "comment": "",
+        "key": "Restricted APIs are compiled out in this build configuration.",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 74
+        }
+      },
+      {
+        "comment": "",
+        "key": "Command",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 82
+        }
+      },
+      {
+        "comment": "",
+        "key": "Write Tag",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 88
+        }
+      },
+      {
+        "comment": "",
+        "key": "Scan Tag",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 93
+        }
+      },
+      {
+        "comment": "",
+        "key": "Simulate Shield On",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 103
+        }
+      },
+      {
+        "comment": "",
+        "key": "Simulate Shield Off",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 107
+        }
+      }
+    ]
+  },
+  "version": 1
+}

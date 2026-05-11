@@ -1,0 +1,12 @@
+{
+  "/Users/Anthony.Madrazo2/Documents/Projects/research/focus/FocusNFCDemo/FocusNFCDemoApp.swift" : {
+    "abi-baseline-json" : "/Users/Anthony.Madrazo2/Documents/Projects/research/focus/build/FocusNFCDemo.build/Release-iphoneos/FocusNFCDemo.build/Objects-normal/arm64/FocusNFCDemo.abi.json",
+    "const-values" : "/Users/Anthony.Madrazo2/Documents/Projects/research/focus/build/FocusNFCDemo.build/Release-iphoneos/FocusNFCDemo.build/Objects-normal/arm64/FocusNFCDemo-primary.swiftconstvalues",
+    "dependencies" : "/Users/Anthony.Madrazo2/Documents/Projects/research/focus/build/FocusNFCDemo.build/Release-iphoneos/FocusNFCDemo.build/Objects-normal/arm64/FocusNFCDemo-primary.d",
+    "diagnostics" : "/Users/Anthony.Madrazo2/Documents/Projects/research/focus/build/FocusNFCDemo.build/Release-iphoneos/FocusNFCDemo.build/Objects-normal/arm64/FocusNFCDemo-primary.dia",
+    "objc-header" : "/Users/Anthony.Madrazo2/Documents/Projects/research/focus/build/FocusNFCDemo.build/Release-iphoneos/FocusNFCDemo.build/Objects-normal/arm64/FocusNFCDemo-Swift.h",
+    "swiftdoc" : "/Users/Anthony.Madrazo2/Documents/Projects/research/focus/build/FocusNFCDemo.build/Release-iphoneos/FocusNFCDemo.build/Objects-normal/arm64/FocusNFCDemo.swiftdoc",
+    "swiftmodule" : "/Users/Anthony.Madrazo2/Documents/Projects/research/focus/build/FocusNFCDemo.build/Release-iphoneos/FocusNFCDemo.build/Objects-normal/arm64/FocusNFCDemo.swiftmodule",
+    "swiftsourceinfo" : "/Users/Anthony.Madrazo2/Documents/Projects/research/focus/build/FocusNFCDemo.build/Release-iphoneos/FocusNFCDemo.build/Objects-normal/arm64/FocusNFCDemo.swiftsourceinfo"
+  }
+}
