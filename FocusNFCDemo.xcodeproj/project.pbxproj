@@ -12,6 +12,8 @@
 		4A0000010000000000000003 /* FocusAppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0000010000000000000013 /* FocusAppModel.swift */; };
 		4A0000010000000000000004 /* NFCSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0000010000000000000014 /* NFCSessionManager.swift */; };
 		4A0000010000000000000005 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A0000010000000000000015 /* Assets.xcassets */; };
+		B3FBCFEB2FB19042004546CB /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = B3FBCFEA2FB19042004546CB /* AppIcon.icon */; };
+		B3FBCFED2FB191E1004546CB /* AppIcon-2.icon in Resources */ = {isa = PBXBuildFile; fileRef = B3FBCFEC2FB191E1004546CB /* AppIcon-2.icon */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +25,8 @@
 		4A0000010000000000000015 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4A0000010000000000000016 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4A0000010000000000000017 /* FocusNFCDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FocusNFCDemo.entitlements; sourceTree = "<group>"; };
+		B3FBCFEA2FB19042004546CB /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
+		B3FBCFEC2FB191E1004546CB /* AppIcon-2.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = "AppIcon-2.icon"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,8 +56,10 @@
 				4A0000010000000000000013 /* FocusAppModel.swift */,
 				4A0000010000000000000014 /* NFCSessionManager.swift */,
 				4A0000010000000000000015 /* Assets.xcassets */,
+				B3FBCFEA2FB19042004546CB /* AppIcon.icon */,
 				4A0000010000000000000016 /* Info.plist */,
 				4A0000010000000000000017 /* FocusNFCDemo.entitlements */,
+				B3FBCFEC2FB191E1004546CB /* AppIcon-2.icon */,
 			);
 			path = FocusNFCDemo;
 			sourceTree = "<group>";
@@ -132,7 +138,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3FBCFED2FB191E1004546CB /* AppIcon-2.icon in Resources */,
 				4A0000010000000000000005 /* Assets.xcassets in Resources */,
+				B3FBCFEB2FB19042004546CB /* AppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -394,11 +402,14 @@
 		4A0000010000000000000091 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"FocusNFCDemo/Preview Content\"";
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = FocusNFCDemo/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -418,11 +429,14 @@
 		4A0000010000000000000092 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"FocusNFCDemo/Preview Content\"";
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = FocusNFCDemo/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -442,12 +456,15 @@
 		4A0000010000000000000093 /* Debug Restricted */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = FocusNFCDemo/FocusNFCDemo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"FocusNFCDemo/Preview Content\"";
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = FocusNFCDemo/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -468,12 +485,15 @@
 		4A0000010000000000000094 /* Release Restricted */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = FocusNFCDemo/FocusNFCDemo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"FocusNFCDemo/Preview Content\"";
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = FocusNFCDemo/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

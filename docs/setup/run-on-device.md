@@ -23,6 +23,8 @@ After the app launches:
 4. When the tag arrives, use **Write Tag** to create one `focus://shield/on` tag and one `focus://shield/off` tag.
 5. Use **Scan Tag** to toggle shielding from NFC.
 
+If iOS detects the tag outside the app, it may show a system NFC notification instead of using the in-app scan sheet. Tap that notification to open Present; the app handles the `focus://shield/on` or `focus://shield/off` URL through the same command path. iOS does not allow silent shielding directly from a background tag scan.
+
 ## Temporary Workaround Without an NFC Tag
 
 Until the NTAG215 arrives, use the manual simulation buttons in the app:

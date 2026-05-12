@@ -16,6 +16,14 @@ struct FocusNFCDemoApp: App {
             // The model is injected so child views can access NFC/app-shielding state.
             ContentView()
                 .environmentObject(model)
+                .onOpenURL { url in
+                    guard let command = FocusCommand.parse(url.absoluteString) else {
+                        model.statusMessage = "Opened unsupported Focus URL: \(url.absoluteString)"
+                        return
+                    }
+
+                    model.handle(command)
+                }
         }
     }
 }

@@ -32,6 +32,9 @@ final class NFCSessionManager: NSObject, ObservableObject {
     // Callback fired when a scan finds a valid FocusCommand.
     private var onReadCommand: (@MainActor (FocusCommand) -> Void)?
 
+    // Prevents the normal session-ending callback from replacing useful success text.
+    private var didFinishSessionSuccessfully = false
+
     // Starts an in-app NFC read session.
     // iOS shows a system scan sheet, then calls delegate methods when it reads a tag.
     func scan(onCommand: @escaping @MainActor (FocusCommand) -> Void) {
@@ -42,8 +45,9 @@ final class NFCSessionManager: NSObject, ObservableObject {
 
         pendingWriteCommand = nil
         onReadCommand = onCommand
+        didFinishSessionSuccessfully = false
 
-        let session = NFCNDEFReaderSession(delegate: self, queue: .main, invalidateAfterFirstRead: true)
+        let session = NFCNDEFReaderSession(delegate: self, queue: .main, invalidateAfterFirstRead: false)
         session.alertMessage = "Hold your iPhone near a Present tag."
         self.session = session
         session.begin()
@@ -59,6 +63,7 @@ final class NFCSessionManager: NSObject, ObservableObject {
 
         pendingWriteCommand = command
         onReadCommand = nil
+        didFinishSessionSuccessfully = false
 
         let session = NFCNDEFReaderSession(delegate: self, queue: .main, invalidateAfterFirstRead: false)
         session.alertMessage = "Hold your iPhone near a writable NDEF tag."
@@ -83,18 +88,16 @@ extension NFCSessionManager: NFCNDEFReaderSessionDelegate {
     nonisolated func readerSession(_ session: NFCNDEFReaderSession, didDetectNDEFs messages: [NFCNDEFMessage]) {
         // Flatten all records from all messages, decode each as text/URI, and keep
         // the first value that matches our tiny command language.
-        let command = messages
-            .flatMap(\.records)
-            .compactMap(Self.commandString(from:))
-            .compactMap(FocusCommand.parse(_:))
-            .first
+        let decodedValues = messages.flatMap(Self.commandStrings(from:))
+        let command = decodedValues.compactMap(FocusCommand.parse(_:)).first
 
         MainActor.assumeIsolated {
             guard let command else {
-                statusMessage = "Tag did not contain a valid Present command."
+                statusMessage = Self.invalidTagStatus(decodedValues: decodedValues)
                 return
             }
 
+            didFinishSessionSuccessfully = true
             statusMessage = "Read \(command.rawValue)."
             onReadCommand?(command)
         }
@@ -107,27 +110,27 @@ extension NFCSessionManager: NFCNDEFReaderSessionDelegate {
         let tagReference = tags.first.map(NFCTagReference.init(value:))
 
         MainActor.assumeIsolated {
-            // If there is no pending write command, this callback belongs to a read flow.
-            guard let pendingWriteCommand else {
-                return
-            }
-
-            // Writing is safest with exactly one tag near the iPhone.
             guard tagCount == 1, let tagReference else {
                 sessionReference.value.alertMessage = "More than one tag detected. Keep only one tag near the phone."
                 restartPolling(in: sessionReference.value)
                 return
             }
 
-            write(pendingWriteCommand, to: tagReference.value, in: sessionReference.value)
+            if let pendingWriteCommand {
+                write(pendingWriteCommand, to: tagReference.value, in: sessionReference.value)
+            } else {
+                read(from: tagReference.value, in: sessionReference.value)
+            }
         }
     }
 
     // Called when the user cancels, a write completes, or iOS ends the NFC session.
     nonisolated func readerSession(_ session: NFCNDEFReaderSession, didInvalidateWithError error: Error) {
         MainActor.assumeIsolated {
-            if let readerError = error as? NFCReaderError,
-               readerError.code == .readerSessionInvalidationErrorUserCanceled {
+            if didFinishSessionSuccessfully {
+                // Keep the more useful read/write success message already shown.
+            } else if let readerError = error as? NFCReaderError,
+                      readerError.code == .readerSessionInvalidationErrorUserCanceled {
                 statusMessage = "NFC session cancelled."
             } else {
                 statusMessage = "NFC session ended: \(error.localizedDescription)"
@@ -135,6 +138,7 @@ extension NFCSessionManager: NFCNDEFReaderSessionDelegate {
 
             self.session = nil
             pendingWriteCommand = nil
+            didFinishSessionSuccessfully = false
         }
     }
 
@@ -144,6 +148,65 @@ extension NFCSessionManager: NFCNDEFReaderSessionDelegate {
 
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) { [sessionReference] in
             sessionReference.value.restartPolling()
+        }
+    }
+
+    // Connects to one tag and reads its NDEF message explicitly.
+    private func read(from tag: NFCNDEFTag, in session: NFCNDEFReaderSession) {
+        let sessionReference = NFCSessionReference(value: session)
+        let tagReference = NFCTagReference(value: tag)
+
+        session.connect(to: tag) { [weak self, sessionReference, tagReference] error in
+            guard error == nil else {
+                sessionReference.value.alertMessage = "Unable to connect to the tag."
+                sessionReference.value.invalidate()
+                return
+            }
+
+            tagReference.value.queryNDEFStatus { [weak self, sessionReference, tagReference] status, _, error in
+                guard error == nil else {
+                    sessionReference.value.alertMessage = "Unable to inspect the tag."
+                    sessionReference.value.invalidate()
+                    return
+                }
+
+                guard status != .notSupported else {
+                    sessionReference.value.alertMessage = "This tag is not NDEF-compatible."
+                    sessionReference.value.invalidate()
+                    return
+                }
+
+                tagReference.value.readNDEF { [weak self, sessionReference] message, error in
+                    guard error == nil, let message else {
+                        sessionReference.value.alertMessage = "Unable to read the tag."
+                        sessionReference.value.invalidate()
+                        return
+                    }
+
+                    let decodedValues = Self.commandStrings(from: message)
+                    let command = decodedValues.compactMap(FocusCommand.parse(_:)).first
+
+                    guard let command else {
+                        let status = Self.invalidTagStatus(decodedValues: decodedValues)
+                        sessionReference.value.alertMessage = status
+                        sessionReference.value.invalidate()
+
+                        Task { @MainActor [weak self, status] in
+                            self?.statusMessage = status
+                        }
+                        return
+                    }
+
+                    sessionReference.value.alertMessage = "Read \(command.rawValue)."
+
+                    Task { @MainActor [weak self, command] in
+                        self?.didFinishSessionSuccessfully = true
+                        self?.statusMessage = "Read \(command.rawValue)."
+                        self?.onReadCommand?(command)
+                        sessionReference.value.invalidate()
+                    }
+                }
+            }
         }
     }
 
@@ -199,15 +262,19 @@ extension NFCSessionManager: NFCNDEFReaderSessionDelegate {
                         sessionReference.value.alertMessage = "Wrote \(command.rawValue)."
                     }
 
-                    sessionReference.value.invalidate()
-
                     Task { @MainActor [weak self, didWrite, command] in
+                        self?.didFinishSessionSuccessfully = didWrite
                         self?.statusMessage = didWrite ? "Wrote \(command.rawValue)." : "Write failed."
                         self?.pendingWriteCommand = nil
+                        sessionReference.value.invalidate()
                     }
                 }
             }
         }
+    }
+
+    private nonisolated static func commandStrings(from message: NFCNDEFMessage) -> [String] {
+        message.records.compactMap(commandString(from:))
     }
 
     // Decodes a single NDEF record into a Swift String.
@@ -222,5 +289,14 @@ extension NFCSessionManager: NFCNDEFReaderSessionDelegate {
         }
 
         return String(data: payload.payload, encoding: .utf8)
+    }
+
+    private nonisolated static func invalidTagStatus(decodedValues: [String]) -> String {
+        guard !decodedValues.isEmpty else {
+            return "Tag did not contain readable text or URI data."
+        }
+
+        let values = decodedValues.joined(separator: ", ")
+        return "Tag data is not a Present command: \(values)"
     }
 }
