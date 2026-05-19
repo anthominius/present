@@ -8,7 +8,7 @@ This project has two build modes.
 
 ## Restricted Configurations
 
-`Debug Restricted` and `Release Restricted` are real-device modes. These compile in `FamilyControls`, `ManagedSettings`, and the entitlements needed for app shielding and NFC tag reading.
+`Debug Restricted` and `Release Restricted` are real-device modes. These compile in `FamilyControls`, `ManagedSettings`, and the entitlements needed for app shielding, Screen Time report data, and NFC tag reading.
 
 The shared `FocusNFCDemo` scheme is configured to run with `Debug Restricted`, so after your Apple Developer Program membership is active you can select the `FocusNFCDemo` scheme, choose your physical iPhone, and press Play.
 

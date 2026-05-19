@@ -7,6 +7,7 @@ This directory holds setup, runbook, and reference material that supports the sh
 - [Xcode signing and setup](setup/xcode-signing.md)
 - [Run on a physical iPhone](setup/run-on-device.md)
 - [Command-line builds](setup/cli-builds.md)
+- [TestFlight upload](setup/testflight-upload.md)
 
 ## Reference
 

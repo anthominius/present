@@ -19,9 +19,10 @@ After the app launches:
 
 1. Tap **Authorize Screen Time**.
 2. Tap **Choose Apps** and select one or more apps to shield.
-3. If your NFC tag has not arrived, use **Simulate Shield On** and **Simulate Shield Off**.
-4. When the tag arrives, use **Write Tag** to create one `focus://shield/on` tag and one `focus://shield/off` tag.
-5. Use **Scan Tag** to toggle shielding from NFC.
+3. Confirm the Screen Time status shows **Approved with data access** before relying on the Dashboard report. If it only shows **Approved**, the app can shield apps but the report does not have App and Website Usage data access on iOS versions that require it.
+4. If your NFC tag has not arrived, use **Simulate Shield On** and **Simulate Shield Off**.
+5. When the tag arrives, use **Write Tag** to create one `focus://shield/on` tag and one `focus://shield/off` tag.
+6. Use **Scan Tag** to toggle shielding from NFC.
 
 If iOS detects the tag outside the app, it may show a system NFC notification instead of using the in-app scan sheet. Tap that notification to open Present; the app handles the `focus://shield/on` or `focus://shield/off` URL through the same command path. iOS does not allow silent shielding directly from a background tag scan.
 

@@ -6,9 +6,5 @@
 	<true/>
 	<key>com.apple.developer.family-controls.app-and-website-usage</key>
 	<true/>
-	<key>com.apple.developer.nfc.readersession.formats</key>
-	<array>
-		<string>TAG</string>
-	</array>
 </dict>
 </plist>

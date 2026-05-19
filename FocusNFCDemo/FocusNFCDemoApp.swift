@@ -22,7 +22,12 @@ struct FocusNFCDemoApp: App {
                         return
                     }
 
-                    model.handle(command)
+                    switch command {
+                    case .shieldOn:
+                        model.handle(command)
+                    case .shieldOff:
+                        model.statusMessage = "Open the app or scan a trusted tag to disable shielding."
+                    }
                 }
         }
     }

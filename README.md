@@ -35,5 +35,6 @@ Use a physical NFC-capable iPhone and rewritable NDEF-compatible tags, such as N
 - [Xcode signing and setup](docs/setup/xcode-signing.md)
 - [Run on a physical iPhone](docs/setup/run-on-device.md)
 - [Command-line builds](docs/setup/cli-builds.md)
+- [TestFlight upload](docs/setup/testflight-upload.md)
 - [Build configurations](docs/reference/build-configurations.md)
 - [Developer tooling notes](docs/reference/tooling.md)

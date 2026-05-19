@@ -12,6 +12,9 @@ Use this guide to open the project, set the development team, and run the restri
 6. Confirm these capabilities are present:
    - Near Field Communication Tag Reading
    - Family Controls
+   - Family Controls App and Website Usage
+
+For the Screen Time dashboard report, both the `FocusNFCDemo` app target and the `PresentScreenTimeReport` extension target must be signed with Family Controls and Family Controls App and Website Usage. If the device only reports `Approved` instead of `Approved with data access`, revoke Screen Time authorization for the app, rebuild with those capabilities, and tap **Authorize Screen Time** again.
 
 ## Set Your Development Team
 
